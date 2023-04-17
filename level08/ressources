@@ -1,0 +1,21 @@
+flag08: getflag 25749xKZ8L7DkSCwJkT9dyv6f
+
+https://unix.stackexchange.com/questions/625901/bypass-folder-permissions
+https://security.stackexchange.com/questions/66550/unix-execute-permission-can-be-easily-bypassed-is-it-superfluous-or-whats-the
+
+ls -la renvoie un exécutable level08 et un fichier token sur lequel on a ni droit de lecture ni droit d'écriture
+gdb ./level08
+on observe un strstr qui cherche un substring 0x8048793 dans une string parent 
+x/s 0x8048793 = “token”
+si le nom du fichier est différent on continue
+Sinon on printf x/s 0x8048799 = "You may not access '%s'\n" puis on exit
+Étant donné le nom du fichier “token”, on devine que l'accès du fichier par l'exécutable ./level08 doit être conditionné par son propre nom. Il ne doit pas y avoir la string “token” dedans
+
+Puis l'exécutable essaie de open puis read.
+
+Solution : On tente de créer un lien symbolique du token avec un nom qui ne contient pas token (pas physique sinon il utilise les vrai donnees du fichier de base)
+ln -s /home/user/level08/token /tmp/test
+./level08 /tmp/test qui donne quif5eloekouj29ke0vouxean
+su flag08
+quif5eloekouj29ke0vouxean
+

@@ -1,0 +1,25 @@
+flag02 : getflag kooda2puivaav1idi4f57q8iq
+
+ls -la
+on trouve le fichier level02.pcap
+https://www.reviversoft.com/fr/file-extensions/pcap
+
+on check les paquets contenant de la data on remarque un mdp pour dest …223
+https://ask.wireshark.org/question/12433/how-can-i-search-within-data-specifically-in-the-tcp-segment-data/
+
+On copie le fichier dans le DELL : 
+scp -P 4242 level02@192.168.56.200:/home/user/level02/level02.pcap ./
+
+chmod level02.pcap
+on l’ouvre dans wireshark puis on l’analyse via analyze puis follow puis tcp stream
+
+on obtient ft_wandr...NDRel.L0L
+
+lorsqu’on clique sur les points ca nous redirige sur les paquets correspondant. La data correspondante est 7f en hex qui donne 127 en decimal cad del en ascii
+De plus cette ligne nous le confirme (si on enlève toutes les lettre précédente un “.”, on obtient levelX ce qui a plus de sens )
+l.le.ev.ve.el.lX.X
+
+
+ft_wandr...NDRel.L0L
+donc le mdp est ft_waNDReL0L
+

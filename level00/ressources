@@ -1,0 +1,23 @@
+flag00 : getflag x24ti5gi3x0ol2eh4esiuxias
+
+1er tentative : cat /etc/passwd (car tous les mdp sont dans ce fichier) : qui nous a donné un indice sur le flag01 mais pas flag00
+
+flag00 a le droit d'exécution de getflag. Nous allons voir les tous les fichiers créé par le user
+find / -user flag00
+
+Nous observons ces deux fichiers qui ne sont pas en permission denied
+cat /rofs/usr/sbin/john
+cat /usr/sbin/john
+cdiiddwpgswtgt
+
+john est une commande line permettant de crypter des mot de pass
+
+Nous avons Testé les algos suivants en bruteforce sur dcode
+Affine Cipher
+Mono-alphabetic Substitution
+Cipher Disk/Wheel
+ROT Cipher
+Caesar Cipher
+
+nottoohardhere 
+

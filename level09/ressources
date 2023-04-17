@@ -1,0 +1,42 @@
+flag09: getflag s5cAJpM8ev6XHw998pRWG728z
+
+https://stackoverflow.com/questions/426230/what-is-the-ld-preload-trick
+https://www.cadosecurity.com/linux-attack-techniques-dynamic-linker-hijacking-with-ld-preload/
+
+ls -la affiche un exec level09 et un fichier token 
+./level09 token nous donne tpmhr == “token en rotation”  =  “t+0” + “o+1” + “k+2” + “e+3” + “n+4” 
+Autre test pour confirmer : 
+level09@SnowCrash:~$ ./level09 ld
+le
+level09@SnowCrash:~$ ./level09 lrrr
+lstu
+level09@SnowCrash:~$ ./level09 AAAA
+ABCD
+
+cat token 
+f4kmm6p|=�p�n��DB�Du{�� → Serait-ce le token généré par l'exécutable ./level09 ?
+
+Solution : tentative de création d’un script en C dans le dell (car pas de droit d'écriture sur snowcrash), faisant le hash inverse.
+
+scp -P 4242 level09@192.168.56.200:/home/user/level09/token ./token09
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main (int ac, char **av)
+{
+	printf("My token : %s\n", av[1]);
+	int len = strlen(av[1]);
+	int y = 0;
+	printf("my lenght is %d\n", len);
+	while (y < len)
+	{
+		printf("%c", av[1][y] - y);
+		y++;
+	}
+}
+
+chmod 777 token09
+./a.out $(cat token09)
+f3iji1ju5yuevaus41q1afiuq 
+
